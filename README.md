@@ -2,7 +2,7 @@
 
 ## Homework progress
 
-01-business-process: Handed in
+01-business-process: uploaded in repo
 
 02-soap:
 
