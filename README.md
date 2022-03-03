@@ -4,7 +4,10 @@
 
 01-business-process: uploaded in repo
 
-02-soap:
+02-soap: uploaded in repo
+  2 web services:
+    1) Send mail to given recipient for given order number
+    2) Create PDF file receipt with information about the order
 
 03-wsdl:
 
