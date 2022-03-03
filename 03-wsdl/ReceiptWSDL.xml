@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<definitions    xmlns="http://schemas.xmlsoap.org/wsdl/"
+                xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+                targetNamespace="http://tut01/"
+                xmlns:ns="http://tut01/">
+   <documentation> ... </documentation>
+   <!-- types (0,1) -->
+<wsdl:types>
+    <xs:schema  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                targetNamespace="http://tut01/" 
+                elementFormDefault="qualified">
+        <xs:element name="makePDF">
+            <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" name="orderNumber" type="xs:int"/>
+            </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+        <xs:element name="makePDFResponse">
+            <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" name="pdfReceipt" type="xs:string"/>
+            </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+        <xs:element name="priceDPH">
+            <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" name="orderNumber" type="xs:int"/>
+                <xs:element minOccurs="1" maxOccurs="1" name="dph" type="xs:int"/>
+            </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+        <xs:element name="priceDPHResponse">
+            <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" name="priceDPH" type="xs:double"/>
+            </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    </xs:schema>
+</wsdl:types>
+   <!-- messages (0,*) -->
+<wsdl:message name="makePDFRequestMessage">
+    <wsdl:part name="makePDFRequestMessagePart" element="ns:makePDF"/>
+</wsdl:message>
+<wsdl:message name="makePDFResponseMessage">
+    <wsdl:part name="makePDFResponseMessagePart" element="ns:makePDFResponse"/>
+</wsdl:message>
+<wsdl:message name="priceDPHRequestMessage">
+    <wsdl:part name="priceDPHRequestMessagePart" element="ns:priceDPH"/>
+</wsdl:message>
+<wsdl:message name="priceDPHResponseMessage">
+    <wsdl:part name="priceDPHResponseMessagePart" element="ns:priceDPHResponse"/>
+</wsdl:message>
+
+   <!-- port types (0,*) -->
+<wsdl:portType name="ReceiptPortType">
+    <wsdl:operation name="makePDFOperation">
+        <wsdl:input message="ns:makePDFRequestMessage"/>
+        <wsdl:output message="ns:makePDFResponseMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="priceDPHOperation">
+        <wsdl:input message="ns:priceDPHRequestMessage"/>
+        <wsdl:output message="ns:priceDPHResponseMessage"/>
+    </wsdl:operation>
+</wsdl:portType>
+   <!-- bindings (0,*) -->
+<wsdl:binding name="ReceiptBinding" type="ns:ReceiptPortType">
+  
+    <wsdlsoap:binding style="document"
+                    transport="http://schemas.xmlsoap.org/soap/http"/>
+    
+    <wsdl:operation name="makePDFOperation">
+        <wsdlsoap:operation soapAction="http://tut01/makePDF"/>
+    
+        <wsdl:input>
+            <wsdlsoap:body use="literal"/>
+        </wsdl:input>
+    
+        <wsdl:output>
+            <wsdlsoap:body use="literal"/>
+        </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="priceDPHOperation">
+        <wsdlsoap:operation soapAction="http://tut01/priceDPH"/>
+    
+        <wsdl:input>
+            <wsdlsoap:body use="literal"/>
+        </wsdl:input>
+    
+        <wsdl:output>
+            <wsdlsoap:body use="literal"/>
+        </wsdl:output>
+    </wsdl:operation>
+</wsdl:binding>
+   <!-- services (0,*) -->
+<wsdl:service name="ReceiptService">
+    <wsdl:port binding="ns:ReceiptBinding" name="ReceiptPortType">
+        <wsdlsoap:address location="http://127.0.0.1:8000/Receipt"/>
+    </wsdl:port>
+</wsdl:service>
+
+</definitions>

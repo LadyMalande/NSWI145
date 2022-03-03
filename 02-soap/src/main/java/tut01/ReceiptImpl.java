@@ -6,6 +6,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import javax.jws.WebService;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.stream.Stream;
 import java.io.FileOutputStream;
 
@@ -15,12 +18,12 @@ import java.nio.file.Paths;
 
 @WebService(endpointInterface = "tut01.Receipt")
 public class ReceiptImpl implements Receipt {
-    public Document makePDF(int orderNumber) {
+    public String makePDF(int orderNumber) {
 
         Document document = new Document();
-
+        String fileName = "objednavka" + orderNumber + ".pdf";
         try {
-            FileOutputStream fos = new FileOutputStream("objednavka" + orderNumber + ".pdf");
+            FileOutputStream fos = new FileOutputStream(fileName);
             PdfWriter.getInstance(document, fos);
 
 
@@ -48,7 +51,7 @@ public class ReceiptImpl implements Receipt {
         document.close();
         saveDocument(document, fos);
 
-        return document;
+        return fileName;
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
@@ -74,10 +77,36 @@ public class ReceiptImpl implements Receipt {
     }
 
 
-        public  void saveDocument(Document document, FileOutputStream fos) throws IOException {
+    public  void saveDocument(Document document, FileOutputStream fos) throws IOException {
 
-                fos.flush();
-                fos.close();
+        fos.flush();
+        fos.close();
 
+    }
+
+    private int readPriceFromFile(int orderNumber){
+        Map<Integer, Integer> map = new HashMap<>();
+        try {
+            File myObj = new File("orders.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String line = myReader.nextLine();
+                String str[] = line.split(";");
+                for (int i = 1; i < str.length; i++) {
+                    map.put(Integer.parseInt(str[0]), Integer.parseInt(str[1]));
+                }
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
+        return map.get(orderNumber);
+    }
+
+    public double priceDPH(int orderNumber, int dph){
+        dph = dph == 0 ? 15 : dph;
+        int price = readPriceFromFile(orderNumber);
+        return price * dph * 0.01;
+    }
 }

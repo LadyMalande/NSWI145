@@ -6,5 +6,8 @@ import com.itextpdf.text.Document;
 public interface Receipt {
 
     @javax.jws.WebMethod
-    public Document makePDF(int orderNumber);
+    public String makePDF(int orderNumber);
+
+    @javax.jws.WebMethod
+    public double priceDPH(int orderNumber, int dph);
 }
