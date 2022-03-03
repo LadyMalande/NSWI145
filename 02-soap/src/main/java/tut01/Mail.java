@@ -4,5 +4,8 @@ package tut01;
 public interface Mail {
 
     @javax.jws.WebMethod
-    public boolean sendMail(String mailAddress, int orderNumber);
+    public boolean sendOrderNumber(String mailAddress, int orderNumber);
+
+    @javax.jws.WebMethod
+    public boolean sendPDFReceipt(String mailAddress, int orderNumber);
 }

@@ -1,22 +1,37 @@
 package tut01;
 import javax.jws.WebService;
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 @WebService(endpointInterface = "tut01.Mail")
 public class MailImpl implements Mail {
     @Override
-    public boolean sendMail(String to, int orderNumber) {
+    public boolean sendOrderNumber(String to, int orderNumber) {
+        String subject = "ClothesShop - Objednávka číslo " + orderNumber;
+        String text = "Děkujeme za Vaši objednávku! \n Číslo Vaší objednávky je " + orderNumber + ".";
+
+        return sendMail(to, subject, text, null);
+    }
+
+    @Override
+    public boolean sendPDFReceipt(String to, int orderNumber) {
+        String subject = "ClothesShop - Faktura objednávky číslo " + orderNumber;
+        String text = "V příloze naleznete fakturu vaší objednávky číslo " + orderNumber + ".";
+        File file = new File("objednavka" + orderNumber + ".pdf");
+        return sendMail(to, subject, text, file);
+    }
+
+    private boolean sendMail(String to, String subject, String text, File file){
 
         // Sender's email ID needs to be mentioned
-        String from = "meyarachnos@gmail.com";
+        String from = "lenka.hirstovska@gmail.com";
 
         // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";
@@ -55,15 +70,27 @@ public class MailImpl implements Mail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("ClothesShop - Objednávka číslo " + orderNumber);
+            message.setSubject(subject);
 
-            // Now set the actual message
-            message.setText("Děkujeme za Vaši objednávku! \n Číslo Vaší objednávky je " + orderNumber);
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(text);
+
+            if(file != null){
+                MimeBodyPart attachmentPart = new MimeBodyPart();
+                attachmentPart.attachFile(file);
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(messageBodyPart);
+                multipart.addBodyPart(attachmentPart);
+                message.setContent(multipart);
+            } else{
+                // Now set the actual message
+                message.setText(text);
+            }
 
             // Send message
             Transport.send(message);
             return true;
-        } catch (MessagingException mex) {
+        } catch (MessagingException | IOException mex) {
             mex.printStackTrace();
             return false;
         }
