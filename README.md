@@ -11,9 +11,9 @@
 
 03-wsdl: uploaded 2/2 in repo
 
-ReceiptWSDL: FAULT can be loaded to SOAP UI and receive messages back, but the ReceiptService is not getting the parameters (makePDF creates objednavky0.pdf instead of using the passed parameter, which never arrives to the service
+ReceiptWSDL: DONE, tested
         
-MailWSDL: uploaded, but FAULTy as ReceiptWSDL = service does not receive parameters
+MailWSDL: DONE, tested
 
 04-intermediary:
 
