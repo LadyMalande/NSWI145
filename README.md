@@ -8,9 +8,13 @@
 
   2 web services:
   
-    1) Send mail to given recipient for given order number
+    1) Send mail with order number to given recipient for given order number
+    
+        Update: Second method is Send mail with PDF receipt to given recipient for given order number
     
     2) Create PDF file receipt with information about the order and return local path to the created PDF file
+    
+        Update: Second method is to count DPH value for given order number (price is searched for in database by given order number)
 
 **03-wsdl:** uploaded 2/2 in repo
 
