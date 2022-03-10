@@ -3,32 +3,32 @@ xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.
 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tut01/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/">
    <types>
         <xs:schema version="1.0" targetNamespace="http://tut01/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="makePDF" type="tns:makePDF"/>
-<xs:element name="makePDFResponse" type="tns:makePDFResponse"/>
-<xs:element name="priceDPH" type="tns:priceDPH"/>
-<xs:element name="priceDPHResponse" type="tns:priceDPHResponse"/>
-<xs:complexType name="makePDF">
-<xs:sequence>
-<xs:element name="arg0" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="makePDFResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="priceDPH">
-<xs:sequence>
-<xs:element name="arg0" type="xs:int"/>
-<xs:element name="arg1" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="priceDPHResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:double"/>
-</xs:sequence>
-</xs:complexType>
-</xs:schema>
+            <xs:element name="makePDF" type="tns:makePDF"/>
+            <xs:element name="makePDFResponse" type="tns:makePDFResponse"/>
+            <xs:element name="priceDPH" type="tns:priceDPH"/>
+            <xs:element name="priceDPHResponse" type="tns:priceDPHResponse"/>
+            <xs:complexType name="makePDF">
+               <xs:sequence>
+                  <xs:element name="arg0" type="xs:int"/>
+               </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="makePDFResponse">
+               <xs:sequence>
+                  <xs:element name="return" type="xs:string" minOccurs="0"/>
+               </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="priceDPH">
+               <xs:sequence>
+                  <xs:element name="arg0" type="xs:int"/>
+                  <xs:element name="arg1" type="xs:int"/>
+               </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="priceDPHResponse">
+               <xs:sequence>
+                  <xs:element name="return" type="xs:double"/>
+               </xs:sequence>
+            </xs:complexType>
+            </xs:schema>
    </types>
 
    <message name="makePDF">
