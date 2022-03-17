@@ -2,30 +2,37 @@
 
 ## Homework progress
 
-01-business-process: uploaded in repo
+**01-business-process:** uploaded in repo
 
-02-soap: uploaded in repo
+**02-soap:** uploaded in repo
+
   2 web services:
-    1) Send mail to given recipient for given order number
+  
+    1) Send mail with order number to given recipient for given order number
+    
+        Update: Second method is Send mail with PDF receipt to given recipient for given order number
+    
     2) Create PDF file receipt with information about the order and return local path to the created PDF file
+    
+        Update: Second method is to count DPH value for given order number (price is searched for in database by given order number)
 
-03-wsdl: uploaded 2/2 in repo
+**03-wsdl:** uploaded 2/2 in repo
 
-ReceiptWSDL: FAULT can be loaded to SOAP UI and receive messages back, but the ReceiptService is not getting the parameters (makePDF creates objednavky0.pdf instead of using the passed parameter, which never arrives to the service
+ReceiptWSDL: **DONE**, tested
         
-MailWSDL: uploaded, but FAULTy as ReceiptWSDL = service does not receive parameters
+MailWSDL: **DONE**, tested
 
-04-intermediary:
+**04-intermediary:**
 
-05-cxf:
+**05-cxf:**
 
-06-uddi:
+**06-uddi:**
 
-07-bpel:
+**07-bpel:**
 
-08-rest:
+**08-rest:**
 
-09-lov:
+**09-lov:**
 
-10-rdf:
+**10-rdf:**
 

@@ -4,84 +4,86 @@ xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.
 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tut01/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/">
    <documentation> ... </documentation>
    <!-- types (0,1) -->
-<types>
-<xs:schema version="1.0" targetNamespace="http://tut01/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-<xs:element name="sendOrderNumber" type="tns:sendOrderNumber"/>
-<xs:element name="sendOrderNumberResponse" type="tns:sendOrderNumberResponse"/>
-<xs:element name="sendPDFReceipt" type="tns:sendPDFReceipt"/>
-<xs:element name="sendPDFReceiptResponse" type="tns:sendPDFReceiptResponse"/>
-<xs:complexType name="sendPDFReceipt">
-<xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"/>
-<xs:element name="arg1" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="sendPDFReceiptResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="sendOrderNumber">
-<xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"/>
-<xs:element name="arg1" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="sendOrderNumberResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-</xs:schema>
-</types>
-   <!-- messages (0,*) -->
-<message name="sendOrderNumber">
-    <part name="sendOrderNumberPart" element="tns:sendOrderNumber"/>
-</message>
-<message name="sendOrderNumberResponse">
-    <part name="sendOrderNumberResponsePart" element="tns:sendOrderNumberResponse"/>
-</message>
-<message name="sendPDFReceipt">
-    <part name="sendPDFReceiptPart" element="tns:sendPDFReceipt"/>
-</message>
-<message name="sendPDFReceiptResponse">
-    <part name="sendPDFReceiptResponsePart" element="tns:sendPDFReceiptResponse"/>
-</message>
+   <types>
+      <xs:schema version="1.0" targetNamespace="http://tut01/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+         <xs:element name="sendOrderNumber" type="tns:sendOrderNumber"/>
+         <xs:element name="sendOrderNumberResponse" type="tns:sendOrderNumberResponse"/>
+         <xs:element name="sendPDFReceipt" type="tns:sendPDFReceipt"/>
+         <xs:element name="sendPDFReceiptResponse" type="tns:sendPDFReceiptResponse"/>
+         <xs:complexType name="sendPDFReceipt">
+            <xs:sequence>
+               <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+               <xs:element name="arg1" type="xs:int"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="sendPDFReceiptResponse">
+            <xs:sequence>
+               <xs:element name="return" type="xs:boolean"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="sendOrderNumber">
+            <xs:sequence>
+               <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+               <xs:element name="arg1" type="xs:int"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="sendOrderNumberResponse">
+            <xs:sequence>
+               <xs:element name="return" type="xs:boolean"/>
+            </xs:sequence>
+         </xs:complexType>
+      </xs:schema>
+   </types>
+      <!-- messages (0,*) -->
+   <message name="sendOrderNumber">
+       <part name="sendOrderNumberPart" element="tns:sendOrderNumber"/>
+   </message>
+   <message name="sendOrderNumberResponse">
+       <part name="sendOrderNumberResponsePart" element="tns:sendOrderNumberResponse"/>
+   </message>
+   <message name="sendPDFReceipt">
+       <part name="sendPDFReceiptPart" element="tns:sendPDFReceipt"/>
+   </message>
+   <message name="sendPDFReceiptResponse">
+       <part name="sendPDFReceiptResponsePart" element="tns:sendPDFReceiptResponse"/>
+   </message>
 
-<portType name="Mail">
-<operation name="sendOrderNumber">
-<input message="tns:sendOrderNumber"/>
-<output message="tns:sendOrderNumberResponse"/>
-</operation>
-<operation name="sendPDFReceipt">
-<input message="tns:sendPDFReceipt"/>
-<output message="tns:sendPDFReceiptResponse"/>
-</operation>
-</portType>
-<binding name="MailPortBinding" type="tns:Mail">
-<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="sendOrderNumber">
-<soap:operation soapAction="http://tut01/Mail/sendOrderNumber"/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="sendPDFReceipt">
-<soap:operation soapAction="http://tut01/Mail/sendPDFReceipt"/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-</binding>
-<service name="MailService">
-<port name="MailPort" binding="tns:MailPortBinding">
-<soap:address location="http://127.0.0.1:8000/Mail"/>
-</port>
-</service>
+   <portType name="Mail">
+      <operation name="sendOrderNumber">
+         <input message="tns:sendOrderNumber"/>
+         <output message="tns:sendOrderNumberResponse"/>
+      </operation>
+      <operation name="sendPDFReceipt">
+         <input message="tns:sendPDFReceipt"/>
+         <output message="tns:sendPDFReceiptResponse"/>
+      </operation>
+   </portType>
+   
+   <binding name="MailPortBinding" type="tns:Mail">
+   <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+      <operation name="sendOrderNumber">
+         <soap:operation soapAction="http://tut01/Mail/sendOrderNumber"/>
+            <input>
+               <soap:body use="literal"/>
+            </input>
+            <output>
+               <soap:body use="literal"/>
+            </output>
+      </operation>
+      <operation name="sendPDFReceipt">
+         <soap:operation soapAction="http://tut01/Mail/sendPDFReceipt"/>
+            <input>
+               <soap:body use="literal"/>
+            </input>
+            <output>
+               <soap:body use="literal"/>
+            </output>
+      </operation>
+   </binding>
+   
+   <service name="MailService">
+      <port name="MailPort" binding="tns:MailPortBinding">
+         <soap:address location="http://127.0.0.1:8000/Mail"/>
+      </port>
+   </service>
 </definitions>
