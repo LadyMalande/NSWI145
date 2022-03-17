@@ -113,7 +113,7 @@ public class MyServlet extends HttpServlet {
     }
 
     protected void addToHeader(double addedDPHValue, SOAPHeaderElement responseHeader, boolean isDPH) throws Exception {
-        QName name = new QName("http://dph.com/", "taxFromAddedDirt", "dph");
+        QName name = new QName("http://dph.com/", "addedTax", "dph");
         QName attribute = new QName("dph");
         SOAPElement addedDPH = responseHeader.addChildElement(name);
         addedDPH.addAttribute(attribute, Double.toString(addedDPHValue));
