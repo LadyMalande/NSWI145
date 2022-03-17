@@ -19,6 +19,8 @@ SOAP message:
 ```
 
 How should the response look like:
+
+```
 <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
     <S:Header>
         <dph:taxFromAddedDirt xmlns:dph="http://dph.com/">
@@ -31,5 +33,6 @@ How should the response look like:
       </ns2:priceDPHResponse>
     </S:Body>
 </S:Envelope>
+```
 
 Not tested, issues with running servlet in Eclipse.
