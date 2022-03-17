@@ -3,6 +3,8 @@ Client defaultly shows the method priceDPH, which returns double. Tested, works.
 Intermediary is supposed to count additional tax value. When the header comes, it is consumed. When the service returns tax value, the intermediary reads its value and counts additional tax which is included in header.
 
 SOAP message:
+
+```
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tut="http://tut01/">
    <soapenv:Header>
    	<taxFromAddedDirt xmlns:dph="http://dph.com/"/>
@@ -14,6 +16,7 @@ SOAP message:
       </tut:priceDPH>
    </soapenv:Body>
 </soapenv:Envelope>
+```
 
 How should the response look like:
 <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
