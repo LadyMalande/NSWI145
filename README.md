@@ -24,7 +24,11 @@ MailWSDL: **DONE**, tested
 
 **04-intermediary:**
 
-**05-cxf:**
+**05-cxf:** **DONE**, tested in Eclipse and SOAPUI.
+
+1) CXF Client for Receipt Web Service
+
+2) **NEW** CXF Web Service for retrieving account balance by account name. Authentization with WS-Security plain text.
 
 **06-uddi:**
 
