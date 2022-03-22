@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="AccountImplService" targetNamespace="http://accountBalance/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://accountBalance/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://accountBalance/" schemaLocation="accountimpl_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="getAccountBalanceResponse">
+    <wsdl:part name="parameters" element="tns:getAccountBalanceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccountBalance">
+    <wsdl:part name="parameters" element="tns:getAccountBalance">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Account">
+    <wsdl:operation name="getAccountBalance">
+      <wsdl:input name="getAccountBalance" message="tns:getAccountBalance">
+    </wsdl:input>
+      <wsdl:output name="getAccountBalanceResponse" message="tns:getAccountBalanceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AccountImplServiceSoapBinding" type="tns:Account">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getAccountBalance">
+      <soap:operation soapAction="urn:GetAccountBalance" style="document"/>
+      <wsdl:input name="getAccountBalance">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAccountBalanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccountImplService">
+    <wsdl:port name="AccountImplPort" binding="tns:AccountImplServiceSoapBinding">
+      <soap:address location="http://localhost:8080/accountBalance/services/AccountImplPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
