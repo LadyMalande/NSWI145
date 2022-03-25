@@ -30,7 +30,9 @@ MailWSDL: **DONE**, tested
 
 2) **NEW** CXF Web Service for retrieving account balance by account name. Authentization with WS-Security plain text.
 
-**06-uddi:** uploaded in repo
+**06-uddi:** uploaded in repo.
+
+  **NEW** sevice: Associate Discount Service
 
 **07-bpel:**
 
