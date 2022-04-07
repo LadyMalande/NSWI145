@@ -34,7 +34,10 @@ MailWSDL: **DONE**, tested
 
   **NEW** sevice: Associate Discount Service
 
-**07-bpel:**
+**07-bpel:** uploaded in repo.
+
+  New service MyPDFMaker takes 5 parameters. It multiplies 2 numbers with the same multiplier in paralell. Then it adds the results of multiplying. At the same time, the tax is count and PDF is made simultaneously. 
+  Multiplications and sum are dependent, sum/tax computation/PDF making are independent.
 
 **08-rest:**
 
