@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<process name="MyPDFMaker"
+    targetNamespace="http://nswi145/MyPDFMaker/bpel" 
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:tns="http://nswi145/MyPDFMaker/bpel"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tnswsdl="http://nswi145/MyPDFMaker/wsdl"
+    xmlns:tnsxsd="http://nswi145/MyPDFMaker/xsd"
+    xmlns:calc="http://tempuri.org/"
+    xmlns:rec="http://tut01/"
+    queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0"
+    expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
+
+  <import location="MyPDFMakerProcess.wsdl"
+      namespace="http://nswi145/MyPDFMaker/wsdl"
+      importType="http://schemas.xmlsoap.org/wsdl/" />
+
+  <partnerLinks>
+    <partnerLink name="MyPDFMakerPartnerLink" 
+        partnerLinkType="tnswsdl:MyPDFMakerLinkType" 
+        myRole="MyPDFMakerExecutorRole" />
+    <partnerLink name="MultiplyLink" 
+        partnerLinkType="tnswsdl:MultiplyLinkType" 
+        myRole="MultiplierClientRole" 
+        partnerRole="MultiplierRole"/>
+    <partnerLink name="AddLink" 
+        partnerLinkType="tnswsdl:AddLinkType" 
+        myRole="AdderClientRole" 
+        partnerRole="AdderRole"/>
+      <partnerLink name="makePDFLink" 
+        partnerLinkType="tnswsdl:makePDFLinkType" 
+        myRole="makePDFerClientRole" 
+        partnerRole="makePDFerRole"/>
+      <partnerLink name="priceDPHLink" 
+        partnerLinkType="tnswsdl:priceDPHLinkType" 
+        myRole="priceDPHerClientRole" 
+        partnerRole="priceDPHerRole"/>
+  </partnerLinks>
+  
+  <variables>
+    <variable name="inputMessage" messageType="tnswsdl:PDFMakerInputMessage" />
+    <variable name="inputMessageCopy" messageType="tnswsdl:PDFMakerInputMessage" />
+    <variable name="orderNumber" type="xsd:integer" />
+    <variable name="discount" type="xsd:double" />
+    <variable name="tax" type="xsd:integer" />
+    <variable name="price1" type="xsd:double" />
+    <variable name="price2" type="xsd:double" />
+    <variable name="finalPrice" type="xsd:double" />
+    <variable name="taxFromPrice" type="xsd:double" />
+
+    <variable name="multiRequestElement1" element="calc:Multiply" />
+    <variable name="multiRequest1" messageType="calc:MultiplySoapIn" />
+    <variable name="multiResponse1" messageType="calc:MultiplySoapOut" />
+    <variable name="multiResponseElement1" element="calc:MultiplyResponse" />
+    
+    <variable name="multiRequestElement2" element="calc:Multiply" />
+    <variable name="multiRequest2" messageType="calc:MultiplySoapIn" />
+    <variable name="multiResponse2" messageType="calc:MultiplySoapOut" />
+    <variable name="multiResponseElement2" element="calc:MultiplyResponse" />
+
+    <variable name="addend1" type="xsd:double" />
+    <variable name="addend2" type="xsd:double" />
+
+    <variable name="addRequestElement" element="calc:Add" />
+    <variable name="addRequest" messageType="calc:AddSoapIn" />
+    <variable name="addResponse" messageType="calc:AddSoapOut" />
+    <variable name="addResponseElement" element="calc:AddResponse" />
+    
+    <variable name="priceDPHRequestElement" element="rec:priceDPH" />
+    <variable name="priceDPHRequest" messageType="rec:priceDPH" />
+    <variable name="priceDPHResponse" messageType="rec:priceDPHResponse" />
+    <variable name="priceDPHResponseElement" element="rec:priceDPHResponse" />
+
+    <variable name="makePDFRequestElement" element="rec:makePDF" />
+    <variable name="makePDFRequest" messageType="rec:makePDF" />
+    <variable name="makePDFResponse" messageType="rec:makePDFResponse" />
+    <variable name="makePDFResponseElement" element="rec:makePDFResponse" />
+
+    <variable name="outputMessage" messageType="tnswsdl:PDFMakerOutputMessage" />
+  </variables>
+  
+  <flow>
+    <links>
+      <link name="discountedPricesLink" />
+    </links>
+    <receive
+        name="ReceiveMyPDFMakerInputs"
+        partnerLink="MyPDFMakerPartnerLink"
+        portType="tnswsdl:PDFMakerPortType"
+        operation="getPathToNewPDF"
+        variable="inputMessage"
+        createInstance="yes" />
+    
+
+    <assign name="ParseInput">
+      <copy>
+        <from>
+        	<from variable="inputMessage" part="parameters"/>
+        </from>
+        <to variable="inputMessageCopy" />
+      </copy>
+      <copy>
+      	<from>$inputMessageCopy/tns:orderNumber</from>
+      	<to>$orderNumber</to>
+      </copy>
+      <copy>
+      	<from>$inputMessageCopy/tns:tax</from>
+      	<to>$tax</to>
+      </copy>
+      <copy>
+      	<from>$inputMessageCopy/tns:discount</from>
+      	<to>$discount</to>
+      </copy>
+      <copy>
+      	<from>$inputMessageCopy/tns:price1</from>
+      	<to>$price1</to>
+      </copy>
+      <copy>
+      	<from>$inputMessageCopy/tns:price2</from>
+      	<to>$price2</to>
+      </copy>
+    </assign>
+    
+    <assign name="InitMultiRequest1">
+      <copy>
+        <from>
+        	<literal>
+        		<calc:Multiply>
+        			<calc:intA></calc:intA>
+        			<calc:intB></calc:intB>
+        		</calc:Multiply>
+        	</literal>
+        </from>
+        <to variable="multiRequestElement1" />
+      </copy>
+      <copy>
+      	<from>$price1</from>
+      	<to>$multiRequestElement/calc:intA</to>
+      </copy>
+      <copy>
+      	<from>$discount</from>
+      	<to>$multiRequestElement/calc:intB</to>
+      </copy>
+      <copy>
+      	<from variable="multiRequestElement1"/>
+      	<to variable="multiRequest1" part="parameters"/>
+      </copy>
+    </assign>
+
+    <assign name="InitMultiRequest2">
+      <copy>
+        <from>
+        	<literal>
+        		<calc:Multiply>
+        			<calc:intA></calc:intA>
+        			<calc:intB></calc:intB>
+        		</calc:Multiply>
+        	</literal>
+        </from>
+        <to variable="multiRequestElement2" />
+      </copy>
+      <copy>
+      	<from>$price2</from>
+      	<to>$multiRequestElement/calc:intA</to>
+      </copy>
+      <copy>
+      	<from>$discount</from>
+      	<to>$multiRequestElement/calc:intB</to>
+      </copy>
+      <copy>
+      	<from variable="multiRequestElement2"/>
+      	<to variable="multiRequest2" part="parameters"/>
+      </copy>
+    </assign>
+
+	<invoke
+        name="InvokeMultiplication1"
+        partnerLink="MultiplyLink"
+        operation="Multiply"
+        inputVariable="multiRequest1"
+        outputVariable="multiResponse1">
+        <source>
+          <source name="discountedPricesLink" />
+        </source>
+    </invoke>
+    <invoke
+        name="InvokeMultiplication2"
+        partnerLink="MultiplyLink"
+        operation="Multiply"
+        inputVariable="multiRequest2"
+        outputVariable="multiResponse2">  
+        <source>
+          <source name="discountedPricesLink" />
+        </source>
+    </invoke>  
+        
+    <assign name="ParseMultiResponse1">
+    	<copy>
+    		<from variable="multiResponse1" part="parameters"/>
+    		<to variable="multiResponseElement1"/>
+    	</copy>
+    	<copy>
+    		<from>$multiResponseElement1/calc:MultiplyResult</from>
+    		<to>$addend1</to>
+    	</copy>
+    </assign> 
+
+    <assign name="ParseMultiResponse2">
+    	<copy>
+    		<from variable="multiResponse2" part="parameters"/>
+    		<to variable="multiResponseElement2"/>
+    	</copy>
+    	<copy>
+    		<from>$multiResponseElement2/calc:MultiplyResult</from>
+    		<to>$addend2</to>
+    	</copy>
+    </assign> 
+
+    <assign name="InitAddRequest">
+      <copy>
+        <from>
+        	<literal>
+        		<calc:Add>
+        			<calc:intA></calc:intA>
+        			<calc:intB></calc:intB>
+        		</calc:Add>
+        	</literal>
+        </from>
+        <to variable="addRequestElement" />
+      </copy>
+      <copy>
+      	<from>$addend1</from>
+      	<to>$addRequestElement/calc:intA</to>
+      </copy>
+      <copy>
+      	<from>$addend2</from>
+      	<to>$addRequestElement/calc:intB</to>
+      </copy>
+      <copy>
+      	<from variable="addRequestElement"/>
+      	<to variable="addRequest" part="parameters"/>
+      </copy>
+    </assign>
+
+    <invoke
+        name="InvokeSum"
+        partnerLink="AddLink"
+        operation="Add"
+        inputVariable="addRequest"
+        outputVariable="addResponse" >
+        <targets>
+          <target name="discountedPricesLink" />
+        </targets>  
+    </invoke>
+    <assign name="ParseAddResponse">
+    	<copy>
+    		<from variable="addResponse" part="parameters"/>
+    		<to variable="addResponseElement"/>
+    	</copy>
+    	<copy>
+    		<from>$addResponseElement/calc:AddResult</from>
+    		<to>$finalPrice</to>
+    	</copy>
+    </assign> 
+
+
+    <assign name="ParsepriceDPHRequest">
+      <copy>
+        <from>
+            <literal>
+              <rec:priceDPH>
+                <rec:customerNumber></rec:customerNumber>
+                <rec:taxPercentage></rec:taxPercentage>
+              </rec:priceDPH>
+            </literal>
+          </from>
+          <to variable="priceDPHRequestElement" />
+      </copy>
+    	<copy>
+    		<from>$orderNumber</from>
+    		<to>$priceDPHRequestElement/rec:customerNumber</to>
+    	</copy>
+    	<copy>
+    		<from>$tax</from>
+    		<to>$priceDPHRequestElement/rec:taxPercentage</to>
+    	</copy>
+    </assign> 
+
+    <invoke
+        name="InvokepriceDPH"
+        partnerLink="priceDPHLink"
+        operation="priceDPH"
+        inputVariable="priceDPHRequest"
+        outputVariable="priceDPHResponse" />  
+
+
+    <assign name="ParsepriceDPHResponse">
+    	<copy>
+    		<from variable="priceDPHResponse" part="priceDPHResponseType"/>
+    		<to variable="priceDPHResponseElement"/>
+    	</copy>
+    	<copy>
+    		<from>$priceDPHResponseElement/rec:return</from>
+    		<to>$taxFromPrice</to>
+    	</copy>
+    </assign>  
+
+  <assign name="InitmakePDFRequest">
+      <copy>
+        <from>
+            <literal>
+              <rec:makePDF>
+                <rec:customerNumber></rec:customerNumber>
+              </rec:makePDF>
+            </literal>
+          </from>
+        <to variable="makePDFRequestElement" />
+      </copy>
+      <copy>
+      	<from>$orderNumber</from>
+      	<to>$makePDFRequestElement/rec:customerNumber</to>
+      </copy>
+      <copy>
+      	<from variable="makePDFRequestElement"/>
+      	<to variable="makePDFRequest" part="makePDFType"/>
+      </copy>
+    </assign>
+
+    <invoke
+        name="InvokemakePDF"
+        partnerLink="makePDFLink"
+        operation="makePDF"
+        inputVariable="makePDFRequest"
+        outputVariable="makePDFResponse" /> 
+    
+    <assign name="ParsepmakePDFResponse">
+    	<copy>
+    		<from variable="makePDFResponse" part="priceDPHResponseType"/>
+    		<to variable="makePDFResponseElement"/>
+    	</copy>
+    	<copy>
+    		<from>$makePDFResponseElement/rec:return</from>
+    		<to variable="outputMessage" part="parameters"/>
+    	</copy>
+    </assign>  
+   
+    <reply name="ReplyMyPDFMakerOutputs"  
+        partnerLink="MyPDFMakerPartnerLink"
+        portType="tnswsdl:PDFMakerPortType" 
+        operation="getPathToNewPDF"
+        variable="outputMessage" />
+    
+    
+  </flow>
+  
+</process>

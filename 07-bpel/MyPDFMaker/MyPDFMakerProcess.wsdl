@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://nswi145/MyPDFMaker/wsdl" 
+   xmlns:tnsxsd="http://nswi145/MyPDFMaker/xsd" 
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+   xmlns:calc="http://tempuri.org/"
+   xmlns:rec="http://tut01/"
+   targetNamespace="http://nswi145/MyPDFMaker/wsdl">
+    <wsdl:import location="calculator.wsdl"
+      namespace="http://tempuri.org/" />
+
+	<wsdl:import location="ReceiptWSDL.wsdl"
+      namespace="http://tut01/" />
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://nswi145/MyPDFMaker/xsd">
+			<xsd:element name="makeNewPDFWithValues">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="orderNumber" type="xsd:integer" />
+						<xsd:element name="discount" type="xsd:double" />
+						<xsd:element name="tax" type="xsd:integer" />
+						<xsd:element name="price1" type="xsd:double" />
+						<xsd:element name="price2" type="xsd:double" />
+					</xsd:sequence>
+				</xsd:complexType>
+      		</xsd:element>
+			<xsd:element name="makeNewPDFWithValuesResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="pdfPath" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+      		</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="PDFMakerInputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:makeNewPDFWithValues"/>
+	</wsdl:message>
+	<wsdl:message name="PDFMakerOutputMessage">
+		<wsdl:part name="parameters" element="tnsxsd:makeNewPDFWithValuesResponse"/>
+	</wsdl:message>
+	
+	<wsdl:portType name="PDFMakerPortType">
+		<wsdl:operation name="getPathToNewPDF">
+			<wsdl:input name="orderNumberAndMore" message="tns:PDFMakerInputMessage"/>
+			<wsdl:output name="pdfPath" message="tns:PDFMakerOutputMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="AddResponsePortType">
+		<wsdl:operation name="addOperation">
+			<wsdl:input name="AddIn" message="calc:AddSoapOut"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="MultiplyResponsePortType">
+		<wsdl:operation name="multiplyOperation">
+			<wsdl:input name="MultIn" message="calc:MultiplySoapOut"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="makePDFResponsePortType">
+		<wsdl:operation name="makePDFOperation">
+			<wsdl:input name="makePDFIn" message="rec:makePDFResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:portType name="priceDPHResponsePortType">
+		<wsdl:operation name="priceDPHOperation">
+			<wsdl:input name="priceDPHIn" message="rec:priceDPHResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="PDFMakerSOAPBinding" type="tns:PDFMakerPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getPathToNewPDF">
+			<soap:operation soapAction="urn:getPathToNewPDF" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:binding name="MultiSOAPBinding" type="tns:MultiplyResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="multiplyOperation">
+			<soap:operation soapAction="urn:multiplyResponseOperation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="AddSOAPBinding" type="tns:AddResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="addOperation">
+			<soap:operation soapAction="urn:addResponseOperation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="makePDFSOAPBinding" type="tns:makePDFResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="makePDFOperation">
+			<soap:operation soapAction="urn:makePDFResponseOperation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:binding name="priceDPHSOAPBinding" type="tns:priceDPHResponsePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="priceDPHOperation">
+			<soap:operation soapAction="urn:priceDPHResponseOperation" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="MyPDFMaker">
+		<wsdl:port name="PDFMakerPort" binding="tns:PDFMakerSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/MyPDFMaker"/>
+		</wsdl:port>
+		<wsdl:port name="MultPort" binding="tns:MultiSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/MyPDFMakerMuli"/>
+		</wsdl:port>
+		<wsdl:port name="AddPort" binding="tns:AddSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/MyPDFMakerAdd"/>
+		</wsdl:port>
+		<wsdl:port name="makePDFPort" binding="tns:makePDFSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/MyPDFMakermakePDF"/>
+		</wsdl:port>
+		<wsdl:port name="priceDPHPort" binding="tns:priceDPHSOAPBinding">
+			<soap:address location="http://localhost:8080/ode/processes/MyPDFMakerpriceDPH"/>
+		</wsdl:port>
+	</wsdl:service>
+
+	<plnk:partnerLinkType name="MyPDFMakerLinkType">
+		<plnk:role name="MyPDFMakerExecutorRole" portType="tns:MyPDFMakerPortType"/>
+	</plnk:partnerLinkType>
+	
+	<plnk:partnerLinkType name="MultiplyLinkType">
+	  <plnk:role name="MultiplierRole" portType="calc:CalculatorSoap" />
+	  <plnk:role name="MultiplierClientRole" portType="tns:MultiplyResponsePortType" />
+	</plnk:partnerLinkType>
+
+	<plnk:partnerLinkType name="AddLinkType">
+	  <plnk:role name="AdderRole" portType="calc:CalculatorSoap" />
+	  <plnk:role name="AdderClientRole" portType="tns:AddResponsePortType" />
+	</plnk:partnerLinkType>
+
+	<plnk:partnerLinkType name="makePDFLinkType">
+	  <plnk:role name="makePDFerRole" portType="rec:Receipt" />
+	  <plnk:role name="makePDFerClientRole" portType="tns:makePDFResponsePortType" />
+	</plnk:partnerLinkType>
+
+	<plnk:partnerLinkType name="priceDPHLinkType">
+	  <plnk:role name="priceDPHerRole" portType="rec:Receipt" />
+	  <plnk:role name="priceDPHerClientRole" portType="tns:priceDPHResponsePortType" />
+	</plnk:partnerLinkType>
+
+</wsdl:definitions>

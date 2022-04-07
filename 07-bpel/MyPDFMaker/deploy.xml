@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<deploy 
+    xmlns="http://www.apache.org/ode/schemas/dd/2007/03"
+    xmlns:tnsbpel="http://nswi145/MyPDFMaker/bpel"
+    xmlns:tnswsdl="http://nswi145/MyPDFMaker/wsdl"
+    xmlns:calc="http://tempuri.org/"
+    xmlns:rec="http://tut01/"
+  >
+
+  <process name="tnsbpel:MyPDFMaker">
+    <active>true</active>
+
+    <provide partnerLink="MyPDFMakerLinkType">
+      <service name="tnswsdl:MyPDFMaker" port="PDFMakerPort" />
+    </provide>
+      
+      <invoke partnerLink="MultiplyLink">
+        <service name="calc:Calculator" port="CalculatorSoap" />
+      </invoke>
+      <invoke partnerLink="MultiplyLink">
+        <service name="calc:Calculator" port="CalculatorSoap" />
+      </invoke>
+        <invoke partnerLink="AddLink">
+          <service name="calc:Calculator" port="CalculatorSoap" />
+        </invoke>
+        <invoke partnerLink="priceDPHLink">
+          <service name="rec:ReceiptService" port="ReceiptImplPort" />
+        </invoke>
+        <invoke partnerLink="makePDFLink">
+          <service name="rec:ReceiptService" port="ReceiptImplPort" />
+        </invoke>
+    <provide partnerLink="MultiplyLink">
+      <service name="tnswsdl:MyPDFMaker" port="MultPort" />
+    </provide>
+    <provide partnerLink="AddLink">
+      <service name="tnswsdl:MyPDFMaker" port="AddPort" />
+    </provide>
+    <provide partnerLink="makePDFLink">
+      <service name="tnswsdl:MyPDFMaker" port="makePDFPort" />
+    </provide>
+    <provide partnerLink="priceDPHLink">
+      <service name="tnswsdl:MyPDFMaker" port="priceDPHPort" />
+    </provide>
+  
+  </process>
+
+</deploy>
