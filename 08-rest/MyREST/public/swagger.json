@@ -1,0 +1,323 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server User Accounts server.",
+    "version": "1.0.0",
+    "title": "Clothing online shop User Accounts",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "meyarachnos@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/MyREST/rest",
+  "tags": [
+    {
+      "name": "userAccount",
+      "description": "Everything about user accounts"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/userAccount": {
+      "get": {
+        "tags": [
+          "userAccount"
+        ],
+        "summary": "List all the user accounts and the information about them",
+        "description": "",
+        "operationId": "getUserAccounts",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AllUserAccounts"
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/userAccount/{userAccountId}": {
+      "get": {
+        "tags": [
+          "userAccount"
+        ],
+        "summary": "Finds user account by user account id",
+        "operationId": "getUserAccount",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userAccountId",
+            "in": "path",
+            "description": "ID of user account to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserAccount"
+            }
+          },
+          "404": {
+            "description": "Nonexisting user account id value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "userAccount"
+        ],
+        "summary": "Updates user account by user account id",
+        "description": "Note that values 'id', 'login' and 'balance' can't be updated and will stay the same even if the values are changed in the supplied xml object.",
+        "operationId": "putUserAccount",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userAccountId",
+            "in": "path",
+            "description": "ID of user account to update",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "UserAccount object to be updated in the service database.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAccount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Numbers don't match"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "userAccount"
+        ],
+        "summary": "Creates user account by user account id",
+        "description": "Note that values 'balance' can't be initiated with desired value. Instead it will always defaultly start at 0.0.",
+        "operationId": "postUserAccount",
+        "consumes": [
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userAccountId",
+            "in": "path",
+            "description": "ID of user account to insert.",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "UserAccount object to be inserted to the service database.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAccount"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "User Account with this ID already exists"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "userAccount"
+        ],
+        "summary": "Deletes user account by user account id",
+        "operationId": "deleteUserAccount",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userAccountId",
+            "in": "path",
+            "description": "ID of user account to delete.",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User Account with this ID has been deleted."
+          },
+          "404": {
+            "description": "User Account of given ID doesn't exist."
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "AllUserAccounts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UserAccount"
+      },
+      "example": [
+        {
+          "id": 1,
+          "fullname": "Sherlock Holmes",
+          "login": "holmshe",
+          "password": "dudududududu",
+          "email": "sheholme@gmail.com",
+          "balance": 20
+        },
+        {
+          "id": 2,
+          "fullname": "John Watson",
+          "login": "johnw",
+          "password": "paraparaparam",
+          "email": "watsup@gmail.com",
+          "balance": 10
+        }
+      ]
+    },
+    "UserAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2
+        },
+        "fullname": {
+          "type": "string",
+          "example": "John Watson"
+        },
+        "login": {
+          "type": "string",
+          "example": "johnw"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "example": "paraparaparam"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "watsup@gmail.com"
+        },
+        "balance": {
+          "type": "number",
+          "format": "double",
+          "example": 10
+        }
+      },
+      "xml": {
+        "name": "UserAccount"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
