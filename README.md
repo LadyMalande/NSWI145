@@ -39,7 +39,11 @@ MailWSDL: **DONE**, tested
   New service MyPDFMaker takes 5 parameters. It multiplies 2 numbers with the same multiplier in paralell. Then it adds the results of multiplying. At the same time, the tax is counted and PDF is made simultaneously. 
   Multiplications and sum are dependent, (multiplications-sum)/tax computation/PDF making are independent.
 
-**08-rest:**
+**08-rest:** uploaded in repo. Tested with Postman.
+
+Service manipulates with UserAccount object on which GET/POST/PUT/DELETE can be called. Without supplying ID it lists all the user accounts. If ID is supplied, all operations can be done on that particular userAccountId.
+
+Swagger files include swagger.yaml in MyREST/api/swagger folder and swagger.json in MyREST/public folder.
 
 **09-lov:**
 
