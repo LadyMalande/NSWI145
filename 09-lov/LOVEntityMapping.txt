@@ -1,0 +1,29 @@
+Person ... foaf:Person
+  - familyName  ... foaf:familyName
+  - givenName   ... foaf:givenName
+  - birthday    ... foaf:birthday
+Customer ... MISSING
+  - login       ... foaf:nick
+  - password    ... kees:password
+  - balance     ... pext:Money
+  - email       ... vcard:email
+Address ... vcard:Address
+  - street      ... vcard:street-address
+  - number      ... pext:StreetNumber
+  - City        ... vcard:locality
+  - ZIPcode     ... vcard:postal-code
+Order ... pay:order
+  - number      ... dbpedia-owl:idNumber
+  - date        ... dcterms:created
+  - cost        ... essGlobal:Cost
+Item  ... owl:Thing
+  - number      ... dbpedia-owl:idNumber
+  - size        ... dbpedia-owl:clothSize
+  - cost        ... essGlobal:Cost
+  - color       ... schema:color
+ItemGroup ... MISSING 
+  - number      ... dbpedia-owl:idNumber
+Description ... dcterms:description
+  - material    ... dbpedia-owl:material
+  - measures    ... MISSING
+  - text        ... dctype:Text
