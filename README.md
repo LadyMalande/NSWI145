@@ -45,7 +45,7 @@ Service manipulates with UserAccount object on which GET/POST/PUT/DELETE can be 
 
 Swagger files include swagger.yaml in MyREST/api/swagger folder and swagger.json in MyREST/public folder.
 
-**09-lov:**
+**09-lov:** uploaded in repo
 
 **10-rdf:**
 
