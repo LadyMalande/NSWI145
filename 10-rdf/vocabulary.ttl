@@ -1,0 +1,30 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix myvoc: <http://example.org/ClothesShop/vocabulary> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcterms <http://purl.org/dc/terms/> .
+@prefix pay: <http://reference.data.gov.uk/def/payment> .
+
+myvocab:Customer a rdf:Class ;
+    rdfs:label "Customer of a company"@en, "Zákazník podniku"@cs ;
+    rdfs:comment "Registrovaný zákazník se založeným účtem."@cs, "Registered customer with his user account."@en ;
+    rdfs:subClassOf foaf:Person .
+
+myvocab:ItemGroup a rdf:Class ;
+    rdfs:label "Item group of product"@en, "Skupina variant jednoho produktu"@cs ;
+    rdfs:comment "Item group of several variants of the same product, usually different in colour or pattern."@en, "Skupina zahrnující více variant jednoho produktu. Většinou se produkty ve skupině liší barvou nebo vzorem."@cs ;
+    rdfs:subClassOf foaf:Group .
+
+myvocab:measures a rdf:Property ;
+    rdfs:label "Detailed measures of clothing"@en, "Podrobné rozměry oblečení"@cs ;
+    rdfs:comment "Text describing clothes measurements in inches or centimeters with mapping to at least one of the standardized sizes (S/M/L)."@en, "Text popisující rozměry oblečení v palcích nebo centimetrech vztažené k alespoň jedné ze standardizovaných velikostí (S/M/L)."@cs ;
+    rdfs:domain dcterms:description ;
+    rdfs:range  xsd:string .
+
+myvocab:ordered a rdf:Property ;
+    rdfs:label "Ordered"@en, "Objednal"@cs ;
+    rdfs:comment "Property describing that a customer ordered given order."@en, "Vztah popisující, že zákazník objednal uvedenou objednávku."@cs ;
+    rdfs:domain myvoc:Customer ;
+    rdfs:range  pay:order .
+

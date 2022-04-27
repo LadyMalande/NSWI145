@@ -1,0 +1,31 @@
+
+        @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+        @prefix myvoc: <http://example.org/ClothesShop/vocabulary> .
+        @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+        @prefix pext: <http://www.ontotext.com/proton/protonext#> .
+        @prefix kees: <http://linkeddata.center/kees/v1#> .
+        @prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+        
+        <http://example.org/ClothingShop/userAccount/1> a myvoc:Customer ;
+            foaf:givenName "Jane"@en ;
+            foaf:familyName "Doe"@en ;
+            foaf:nick "januD"@en ;
+            pext:Money "0.0"^^xsd:double ;
+            kees:password "myStrongPassword258"^^xsd:string ;
+            vcard:email "jane.doe@yahoo.com"^^xsd:string .
+    
+        <http://example.org/ClothingShop/userAccount/2> a myvoc:Customer ;
+            foaf:givenName "Johnny"@en ;
+            foaf:familyName "Blackwood"@en ;
+            foaf:nick "blackWoody"@en ;
+            pext:Money "0.0"^^xsd:double ;
+            kees:password "cantGuessThat123"^^xsd:string ;
+            vcard:email "johnBlackwood@yahoo.com"^^xsd:string .
+    
+        <http://example.org/ClothingShop/userAccount/3> a myvoc:Customer ;
+            foaf:givenName "Amelia"@en ;
+            foaf:familyName "Strike"@en ;
+            foaf:nick "meliStrike"@en ;
+            pext:Money "0.0"^^xsd:double ;
+            kees:password "nopsswd"^^xsd:string ;
+            vcard:email "amelia.strike@gmail.com"^^xsd:string .

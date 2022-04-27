@@ -1,0 +1,70 @@
+{
+    "@context": {
+        "@base": "http://example.org/ClothingShop/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "kees": "http://linkeddata.center/kees/v1#",
+        "vcard": "http://www.w3.org/2006/vcard/ns#",
+        "pext": "http://www.ontotext.com/proton/protonext#",
+        "myvoc": "http://example.org/ClothesShop/vocabulary",
+        "type": "@type",
+        "id": "@id",
+        "userAccounts": "https://example.org/type",
+        "givenName": {
+            "@id": "foaf:givenName",
+            "@language": "en"
+        },
+        "familyName": {
+            "@id": "foaf:familyName",
+            "@language": "en"
+        },
+        "nick": {
+            "@id": "foaf:nick",
+            "@language": "en"
+        }, 
+        "balance": {
+            "@id": "pext:Money",
+            "@type": "xsd:double"
+        },
+        "password": {
+            "@id": "kees:password",
+            "@type": "xsd:string"
+        },
+        "email": {
+            "@id": "vcard:email",
+            "@type": "xsd:string"
+        }
+    }, 
+    "userAccounts": [
+        {
+            "id": "userAccount/1",
+            "type": "myvoc:Customer",
+            "givenName": "Jane",
+            "familyName": "Doe",
+            "nick": "januD",
+            "balance": 0,
+            "password": "myStrongPassword258",
+            "email": "jane.doe@yahoo.com"
+        },
+        {
+            "id": "userAccount/2",
+            "type": "myvoc:Customer",
+            "givenName": "Johnny",
+            "familyName": "Blackwood",
+            "nick": "blackWoody",
+            "balance": 0,
+            "password": "cantGuessThat123",
+            "email": "johnBlackwood@yahoo.com"
+        },
+        {
+            "id": "userAccount/3",
+            "type": "myvoc:Customer",
+            "givenName": "Amelia",
+            "familyName": "Strike",
+            "nick": "meliStrike",
+            "balance": 0,
+            "password": "nopsswd",
+            "email": "amelia.strike@gmail.com"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userAccounts>
+    <userAccount>
+        <balance>0.0</balance>
+        <email>jane.doe@yahoo.com</email>
+        <fullname>Jane Doe</fullname>
+        <id>1</id>
+        <login>januD</login>
+        <password>myStrongPassword258</password>
+    </userAccount>
+    <userAccount>
+        <balance>0.0</balance>
+        <email>johnBlackwood@yahoo.com</email>
+        <fullname>Johnny Blackwood</fullname>
+        <id>2</id>
+        <login>blackWoody</login>
+        <password>cantGuessThat123</password>
+    </userAccount>
+    <userAccount>
+        <balance>0.0</balance>
+        <email>amelia.strike@gmail.com</email>
+        <fullname>Amelia Strike</fullname>
+        <id>3</id>
+        <login>meliStrike</login>
+        <password>nopsswd</password>
+    </userAccount>
+</userAccounts>
