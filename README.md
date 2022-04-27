@@ -47,5 +47,5 @@ Swagger files include swagger.yaml in MyREST/api/swagger folder and swagger.json
 
 **09-lov:** uploaded in repo
 
-**10-rdf:**
+**10-rdf:** uploaded in repo
 
