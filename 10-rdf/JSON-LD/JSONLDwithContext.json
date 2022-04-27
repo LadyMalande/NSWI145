@@ -6,7 +6,7 @@
         "kees": "http://linkeddata.center/kees/v1#",
         "vcard": "http://www.w3.org/2006/vcard/ns#",
         "pext": "http://www.ontotext.com/proton/protonext#",
-        "myvoc": "http://example.org/ClothesShop/vocabulary",
+        "myvoc": "http://example.org/ClothesShop/vocabulary/",
         "type": "@type",
         "id": "@id",
         "userAccounts": "https://example.org/type",
