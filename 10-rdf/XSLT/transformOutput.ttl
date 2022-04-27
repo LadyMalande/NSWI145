@@ -1,6 +1,6 @@
 
         @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-        @prefix myvoc: <http://example.org/ClothesShop/vocabulary> .
+        @prefix myvoc: <http://example.org/ClothesShop/vocabulary/> .
         @prefix foaf: <http://xmlns.com/foaf/0.1/> .
         @prefix pext: <http://www.ontotext.com/proton/protonext#> .
         @prefix kees: <http://linkeddata.center/kees/v1#> .
